@@ -393,6 +393,7 @@ type flushSyncWriter interface {
 func init() {
 	// Default stderrThreshold is ERROR.
 	logging.stderrThreshold = errorLog
+	logging.setVState(0, nil, false)
 	flag.BoolVar(&logging.toStderr, "logtostderr", false, "log to standard error instead of files")
 	flag.BoolVar(&logging.alsoToStderr, "alsologtostderr", false, "log to standard error as well as files")
 	flag.Var(&logging.verbosity, "v", "log level for V logs")
@@ -401,7 +402,6 @@ func init() {
 	flag.Var(&logging.traceLocation, "log_backtrace_at", "when logging hits line file:N, emit a stack trace")
 	flag.Parse()
 
-	logging.setVState(0, nil, false)
 	go logging.flushDaemon()
 }
 
